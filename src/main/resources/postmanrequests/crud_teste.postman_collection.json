@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "9b360439-f0f9-4383-86e5-7403e6d3a7bd",
+		"name": "crud_teste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/companies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"PetShop Animalis\",\n\t\"cnpj\": \"51230251000101\",\n\t\"qtdEmployers\": 5,\n\t\"legalResponseName\": \"Rodrigo da Silva Pereira\",\n\t\"legalResponseCpf\": \"61321250355\",\n\t\"adress\": {\n\t\t\"adress\": \"Qnp 16 Conjunto A\",\n\t\t\"number\": \"22\",\n\t\t\"complement\": \"\",\n\t\t\"neighborhood\": \"Ceilândia Sul\",\n\t\t\"city\": \"Brasília\",\n\t\t\"state\": \"Distrito Federal\",\n\t\t\"country\": \"Brasil\",\n\t\t\"zipCode\": \"72000000\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/companies",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/companies",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"PetShop Animalis\",\n    \"cnpj\": \"51230251000101\",\n    \"qtdEmployers\": 10,\n    \"legalResponseName\": \"Rodrigo da Silva Pereira\",\n    \"adress\": {\n        \"id\": 2,\n        \"adress\": \"Qnp 16 Conjunto A\",\n        \"number\": \"22\",\n        \"complement\": \"\",\n        \"neighborhood\": \"Ceilândia Sul\",\n        \"city\": \"Brasília\",\n        \"zipCode\": \"72000000\",\n        \"state\": \"Distrito Federal\",\n        \"country\": \"Brasil\"\n    },\n    \"legalResponseCpf\": \"61321250355\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/companies",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/companies/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/companies/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/companies/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/companies/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/companies/51230251000101/por_cnpj",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/companies/51230251000101/por_cnpj",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies",
+						"51230251000101",
+						"por_cnpj"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/companies/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/companies/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"companies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
