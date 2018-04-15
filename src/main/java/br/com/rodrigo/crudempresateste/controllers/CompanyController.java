@@ -1,8 +1,14 @@
 package br.com.rodrigo.crudempresateste.controllers;
 
+import br.com.rodrigo.crudempresateste.dtos.CompanyDTO;
 import br.com.rodrigo.crudempresateste.models.Company;
 import br.com.rodrigo.crudempresateste.services.CompanyService;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +26,14 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> save(@RequestBody Company company) {
+    public ResponseEntity<Company> save(@RequestBody CompanyDTO companyDTO) {
+
+        validate(companyDTO);
+        Company company = CompanyCreator.companyCreator(companyDTO);
         Company companySaved = this.companyService.save(company);
         return new ResponseEntity<>(companySaved, HttpStatus.OK);
     }
+
 
     @PutMapping
     public ResponseEntity<Company> update(@RequestBody Company company) {
@@ -64,6 +74,18 @@ public class CompanyController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    private void validate(CompanyDTO companyDTO) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Set<ConstraintViolation<CompanyDTO>> constraintViolations = factory.getValidator().validate(companyDTO);
+
+        if(!constraintViolations.isEmpty())
+            throw new IllegalArgumentException(takeTheFistCConstraint(constraintViolations));
+    }
+
+    private String takeTheFistCConstraint(Set<ConstraintViolation<CompanyDTO>> constraintViolations) {
+      List<ConstraintViolation<CompanyDTO>> listconstraintViolations = new ArrayList<>(constraintViolations);
+        return listconstraintViolations.get(0).getMessage();
+    }
 
 
 }
