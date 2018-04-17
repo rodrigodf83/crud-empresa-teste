@@ -1,37 +1,31 @@
 package br.com.rodrigo.crudempresateste.dtos;
 
-import br.com.rodrigo.crudempresateste.models.Adress;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
+import br.com.rodrigo.crudempresateste.validators.CompanyDtoValidator;
+import javax.validation.constraints.Min;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 public class CompanyDTO {
 
-    private Long id;
-
-    @Max(value = 50, message = "O campo nome não pode ter mais de 50 caracteres.")
-    @NotBlank(message = "O campo nome não pode estar em branco ou nulo.")
+    @Length(max = 50, message = "O campo nome não pode ter mais de 50 caracteres.")
+    @Length(min = 1, message = "O campo nome não pode estar em branco ou nulo.")
     private String name;
 
     @CNPJ(message = "O CNPJ informado não é válido.")
     private String cnpj;
 
-    @NotBlank(message = "A quantidade de funcionários não pode estar em branco ou nula.")
+    @Min(value = 0,message = "A quantidade de funcionários não pode estar em branco ou nula.")
     private Integer qtdEmployers;
 
-    @Max(value = 50, message = "O campo nome do responsável legal não pode ter mais de 50 caracteres.")
-    @NotBlank(message = "O campo nome do responsável legal não pode estar em branco ou nulo.")
+    @Length(max = 50, message = "O campo nome do responsável legal não pode ter mais de 50 caracteres.")
+    @Length(min = 1, message = "O campo nome do responsável legal não pode estar em branco ou nulo.")
     private String legalResponseName;
 
     @CPF(message = "O CPF informado não é válido.")
     private String LegalResponseCpf;
 
-    private Adress adress;
-
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
+    private AdressDTO adressDTO;
 
     public String getName() { return name; }
 
@@ -53,7 +47,12 @@ public class CompanyDTO {
 
     public void setLegalResponseCpf(String legalResponseCpf) { LegalResponseCpf = legalResponseCpf; }
 
-    public Adress getAdress() { return adress; }
+    public AdressDTO getAdressDTO() {
 
-    public void setAdress(Adress adress) { this.adress = adress; }
+        CompanyDtoValidator.validateAdressDTO(this.adressDTO);
+
+        return adressDTO;
+    }
+
+    public void setAdressDTO(AdressDTO adressDTO) { this.adressDTO = adressDTO; }
 }

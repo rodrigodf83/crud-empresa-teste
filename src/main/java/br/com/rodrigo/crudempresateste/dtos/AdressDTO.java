@@ -3,41 +3,41 @@ package br.com.rodrigo.crudempresateste.dtos;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 public class AdressDTO {
 
     private Long id;
 
-    @Max(value = 50, message = "O campo logradouro não pode ter mais de 50 caracteres.")
+    @Length(max = 50, message = "O campo logradouro não pode ter mais de 50 caracteres.")
     @NotBlank(message = "O campo logradouro não pode estar em branco ou nulo.")
     private String adress;
 
-    @Max(value = 50, message = "O campo número não pode ter mais de 8 caracteres.")
+    @Length(max = 50, message = "O campo número não pode ter mais de 8 caracteres.")
     @NotBlank(message = "O campo número não pode estar em branco ou nulo.")
     private String number;
 
-    @Max(value = 50, message = "O campo complemento não pode ter mais de 50 caracteres.")
-    @NotBlank(message = "O campo complemento não pode estar em branco ou nulo.")
+    @Length(max = 50, message = "O campo complemento não pode ter mais de 50 caracteres.")
     private String complement;
 
-    @Max(value = 50, message = "O campo bairro não pode ter mais de 50 caracteres.")
+    @Length(max = 50, message = "O campo bairro não pode ter mais de 50 caracteres.")
     @NotBlank(message = "O campo bairro não pode estar em branco ou nulo.")
     private String neighborhood;
 
-    @Max(value = 50, message = "O campo cidade não pode ter mais de 50 caracteres.")
+    @Length(max = 50, message = "O campo cidade não pode ter mais de 50 caracteres.")
     @NotBlank(message = "O campo cidade não pode estar em branco ou nulo.")
     private String city;
 
-    @Max(value = 50, message = "O campo estado não pode ter mais de 50 caracteres.")
+    @Length(max = 50, message = "O campo estado não pode ter mais de 50 caracteres.")
     @NotBlank(message = "O campo estado não pode estar em branco ou nulo.")
     private String State;
 
-    @Max(value = 50, message = "O campo país não pode ter mais de 50 caracteres.")
+    @Length(max = 50, message = "O campo país não pode ter mais de 50 caracteres.")
     @NotBlank(message = "O campo país não pode estar em branco ou nulo.")
     private String Country;
 
-    @Max(value = 8, message = "O campo Cep deve ter no máximo 8 dígitos.")
-    @Min(value = 8, message = "O campo Cep deve ter no mínimo 8 dígitos")
+    @Length(max = 8, message = "O campo Cep deve ter no máximo 8 dígitos.")
+    @Length(min = 8, message = "O campo Cep deve ter no mínimo 8 dígitos")
     private String zipCode;
 
     public Long getId() { return id; }

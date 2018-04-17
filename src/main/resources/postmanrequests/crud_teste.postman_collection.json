@@ -17,7 +17,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"PetShop Animalis\",\n\t\"cnpj\": \"51230251000101\",\n\t\"qtdEmployers\": 5,\n\t\"legalResponseName\": \"Rodrigo da Silva Pereira\",\n\t\"legalResponseCpf\": \"61321250355\",\n\t\"adress\": {\n\t\t\"adress\": \"Qnp 16 Conjunto A\",\n\t\t\"number\": \"22\",\n\t\t\"complement\": \"\",\n\t\t\"neighborhood\": \"Ceilândia Sul\",\n\t\t\"city\": \"Brasília\",\n\t\t\"state\": \"Distrito Federal\",\n\t\t\"country\": \"Brasil\",\n\t\t\"zipCode\": \"72000000\"\n\t}\n}"
+					"raw": "{\n\t\"name\": \"PetShop Animalis\",\n\t\"cnpj\": \"51230251000101\",\n\t\"qtdEmployers\": 3,\n\t\"legalResponseName\": \"Rodrigo da Silva Pereira\",\n\t\"legalResponseCpf\": \"61321250355\",\n\t\"adressDTO\": {\n\t\t\"adress\": \"Qnp 16 Conjunto A\",\n\t\t\"number\": \"22\",\n\t\t\"complement\": \"\",\n\t\t\"neighborhood\": \"Ceilândia Sul\",\n\t\t\"city\": \"Brasília\",\n\t\t\"state\": \"Distrito Federal\",\n\t\t\"country\": \"Brasil\",\n\t\t\"zipCode\": \"72000000\"\n\t}\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/companies",
@@ -44,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"name\": \"PetShop Animalis\",\n    \"cnpj\": \"51230251000101\",\n    \"qtdEmployers\": 10,\n    \"legalResponseName\": \"Rodrigo da Silva Pereira\",\n    \"adress\": {\n        \"id\": 2,\n        \"adress\": \"Qnp 16 Conjunto A\",\n        \"number\": \"22\",\n        \"complement\": \"\",\n        \"neighborhood\": \"Ceilândia Sul\",\n        \"city\": \"Brasília\",\n        \"zipCode\": \"72000000\",\n        \"state\": \"Distrito Federal\",\n        \"country\": \"Brasil\"\n    },\n    \"legalResponseCpf\": \"61321250355\"\n}"
+					"raw": "{\n    \"name\": \"PetShop Animalis\",\n    \"cnpj\": \"51230251000101\",\n    \"qtdEmployers\": 10,\n    \"legalResponseName\": \"Rodrigo da Silva Pereira\",\n    \"adressDTO\": {\n        \"id\": 2,\n        \"adress\": \"Qnp 16 Conjunto A\",\n        \"number\": \"22\",\n        \"complement\": \"\",\n        \"neighborhood\": \"Ceilândia Sul\",\n        \"city\": \"Brasília\",\n        \"zipCode\": \"72000000\",\n        \"state\": \"Distrito Federal\",\n        \"country\": \"Brasil\"\n    },\n    \"legalResponseCpf\": \"61321250355\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/companies",
@@ -80,26 +80,6 @@
 			"response": []
 		},
 		{
-			"name": "localhost:8080/companies/1",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "localhost:8080/companies/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"companies",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "localhost:8080/companies/51230251000101/por_cnpj",
 			"request": {
 				"method": "GET",
@@ -127,14 +107,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "localhost:8080/companies/1",
+					"raw": "localhost:8080/companies/51230251000101",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"companies",
-						"1"
+						"51230251000101"
 					]
 				}
 			},

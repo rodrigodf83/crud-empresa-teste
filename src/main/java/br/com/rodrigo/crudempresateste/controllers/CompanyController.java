@@ -1,9 +1,13 @@
 package br.com.rodrigo.crudempresateste.controllers;
 
+import br.com.rodrigo.crudempresateste.converters.CompanyConverter;
 import br.com.rodrigo.crudempresateste.dtos.CompanyDTO;
+import br.com.rodrigo.crudempresateste.exceptions.InvalidDataException;
 import br.com.rodrigo.crudempresateste.models.Company;
 import br.com.rodrigo.crudempresateste.services.CompanyService;
+import br.com.rodrigo.crudempresateste.validators.CompanyDtoValidator;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -26,65 +30,60 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> save(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<CompanyDTO> save(@RequestBody CompanyDTO companyDTO) {
 
-        validate(companyDTO);
-        Company company = CompanyCreator.companyCreator(companyDTO);
+        CompanyDtoValidator.validateCompanyDTO(companyDTO);
+        Company company = CompanyConverter.companyConverter(companyDTO, null);
         Company companySaved = this.companyService.save(company);
-        return new ResponseEntity<>(companySaved, HttpStatus.OK);
+        companyDTO = CompanyConverter.companyDTOConverter(companySaved);
+
+        return new ResponseEntity<>(companyDTO, HttpStatus.OK);
     }
 
 
     @PutMapping
-    public ResponseEntity<Company> update(@RequestBody Company company) {
-        Company companyUpdated = this.companyService.save(company);
-        return new ResponseEntity<>(companyUpdated, HttpStatus.OK);
+    public ResponseEntity<CompanyDTO> update(@RequestBody CompanyDTO companyDTO) {
+        CompanyDtoValidator.validateCompanyDTO(companyDTO);
+        Company companyUpdated = this.companyService.update(companyDTO);
+        companyDTO = CompanyConverter.companyDTOConverter(companyUpdated);
+        return new ResponseEntity<>(companyDTO, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Company>> findAllCompanies() {
+    public ResponseEntity<List<CompanyDTO>> findAllCompanies() {
         List<Company> companies = this.companyService.findAll();
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+        List<CompanyDTO> companyDTOList = companiesConverte(companies);
+        return new ResponseEntity<>(companyDTOList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Company> findOneByid(@PathVariable Long id) {
-        if (id == null)
-            throw new IllegalArgumentException("O id da empresa é necessário!");
-
-        Company company = this.companyService.findOneById(id);
-        return new ResponseEntity<>(company, HttpStatus.OK);
-    }
 
     @GetMapping(value = "/{cnpj}/por_cnpj")
-    public ResponseEntity<Company> findOneByid(@PathVariable String cnpj) {
+    public ResponseEntity<CompanyDTO> findOneByCnpj(@PathVariable String cnpj) {
         if (cnpj == null)
-            throw new IllegalArgumentException("O id da empresa é necessário!");
+            throw new InvalidDataException("O id da empresa é necessário!");
 
         Company company = this.companyService.findOneByCnpj(cnpj);
-        return new ResponseEntity<>(company, HttpStatus.OK);
+        CompanyDTO companyDTO = CompanyConverter.companyDTOConverter(company);
+        return new ResponseEntity<>(companyDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Company> delete(@PathVariable Long id) {
-        if (id == null)
-            throw new IllegalArgumentException("O id da empresa é necessário!");
+    @DeleteMapping(value = "/{cnpj}")
+    public ResponseEntity<Company> delete(@PathVariable String cnpj) {
+        if (cnpj == null || cnpj == "")
+            throw new InvalidDataException("O id da empresa é necessário!");
 
-        this.companyService.delete(id);
+        this.companyService.delete(cnpj);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private void validate(CompanyDTO companyDTO) {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Set<ConstraintViolation<CompanyDTO>> constraintViolations = factory.getValidator().validate(companyDTO);
 
-        if(!constraintViolations.isEmpty())
-            throw new IllegalArgumentException(takeTheFistCConstraint(constraintViolations));
-    }
-
-    private String takeTheFistCConstraint(Set<ConstraintViolation<CompanyDTO>> constraintViolations) {
-      List<ConstraintViolation<CompanyDTO>> listconstraintViolations = new ArrayList<>(constraintViolations);
-        return listconstraintViolations.get(0).getMessage();
+    private List<CompanyDTO> companiesConverte(List<Company> companies) {
+        List<CompanyDTO> companyDTOList = new LinkedList<>();
+        companies.forEach(company -> {
+            CompanyDTO companyDTO = CompanyConverter.companyDTOConverter(company);
+            companyDTOList.add(companyDTO);
+        });
+        return companyDTOList;
     }
 
 
