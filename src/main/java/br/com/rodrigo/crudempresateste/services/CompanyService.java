@@ -42,16 +42,6 @@ public class CompanyService {
         }
     }
 
-    public Company findOneById(Long id) {
-
-        Company company = this.companyRepository.findOneById(id);
-
-        if (company == null)
-            throw new InvalidDataException("Empresa não encontrada!");
-
-        return company;
-    }
-
     public Company findOneByCnpj(String cnpj) {
 
         Company company = this.companyRepository.findByCnpj(cnpj);
